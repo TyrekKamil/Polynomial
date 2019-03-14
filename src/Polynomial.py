@@ -1,3 +1,4 @@
+#Lista Par? Coś można wymyslec
 def pier(p):
     lista = []
     i = p
@@ -37,13 +38,27 @@ def sprawdz(pq, polynom):
     return trueOrFalse
 
 
-x0 = 6
-x1 = -5
-x2 = -2
-x3 =  1
-polynom = [x0, x1, x2, x3]
-p = pier(x3)
-q = pier(x0)
-
+# x0 = 6
+# x1 = -5
+# x2 = -2
+# # x3 =  1
+# polynom = [x0, x1, x2, x3]
+# p = pier(x3)
+# q = pier(x0)
+i=-1
+polynom=[]
+print("Wypisz kolejne współczynniki. Aby zakończyć pozostaw puste pole i wciśnij ENTER.")
+while 1:
+    i+=1
+    item=input('x{} = '.format(i))
+    if item=='':
+        break
+    else:
+        item=float(item)
+        polynom.append(item)
+print(polynom)
+p = pier(polynom[len(polynom)-1])
+q = pier(polynom[0])
 pq = mieszaj(p, q)
 print(sprawdz(pq, polynom))
+print(pq)
