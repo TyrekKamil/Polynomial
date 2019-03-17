@@ -1,63 +1,35 @@
-from src.ulamek import *
 
 
 def pier(p):
     lista = []
-    i = p - 1
-    while i > 1:
+    i = p
+    while i > 0:
         if p % i == 0:
             lista.append(i)
         i = i - 1
     return lista
 
 
-# def mieszaj(p, q):
-#     mieszanka = []
-#     minusy = []
-#     for x in range(len(p)):
-#         for y in range(len(q)):
-#             a = q[y] / p[x]
-#             mieszanka.append(a)
-#     for x in range(len(mieszanka)):
-#         minusy.append(mieszanka[x] * -1)
-#     mieszanka.extend(minusy)
-#     return mieszanka
-
-# def sprawdz(pq, polynom):
-#     trueOrFalse = []
-#     for x in range(len(pq)):
-#         wynik = 0;
-#         print(polynom)
-#         for y in range(len(polynom)):
-#             wynik = wynik + polynom[y] * (pq[x] ** (y))
-#             print(wynik)
-#         if wynik == 0:
-#             trueOrFalse.append(pq[x])
-#
-#     return trueOrFalse
-
 def mieszaj(p, q):
     mieszanka = []
     minusy = []
     for x in range(len(p)):
         for y in range(len(q)):
-            a = Ulamek(q[y], p[x])
-            mieszanka.append(a)
+            a = q[y] / p[x]
+            if a not in mieszanka:
+                mieszanka.append(a)
     for x in range(len(mieszanka)):
-        minusy.append(mnozenieUlamek(mieszanka[x], Ulamek(-1, 1)))
+        minusy.append(mieszanka[x] * -1)
     mieszanka.extend(minusy)
     return mieszanka
-
 
 def sprawdz(pq, polynom):
     trueOrFalse = []
     for x in range(len(pq)):
         wynik = 0;
-        print(polynom)
         for y in range(len(polynom)):
-            wynik = dodajUlamek(wynik, mnozenieUlamek(Ulamek(polynom[y], 1), potegujUlamek(pq[x], Ulamek(y, 1))))
-            print(wynik)
-        if wynik.licznik == 0:
+            wynik = wynik + polynom[y] * (pq[x] ** (y))
+        if wynik == 0:
             trueOrFalse.append(pq[x])
 
     return trueOrFalse
@@ -81,14 +53,8 @@ def main():
 
     pq = mieszaj(p, q)
 
-    pq.append(Ulamek(1, polynom[0]))
-    pq.append(Ulamek(polynom[len(polynom) - 1], polynom[0]))
-
-    pq.append(Ulamek(-1, polynom[0]))
-    pq.append(Ulamek(-1 * polynom[len(polynom) - 1], polynom[0]))
-
     for i in range(len(pq)):
-        print(pq[i].getUlamek())
+        print(pq[i])
     print("Pierwiastki rownania to:", sprawdz(pq, polynom))
 
 
