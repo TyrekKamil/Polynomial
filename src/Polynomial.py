@@ -1,8 +1,9 @@
+from Crypto.Util.number import bignum
 
 
 def pier(p):
     lista = []
-    i = p
+    i = abs(p);
     while i > 0:
         if p % i == 0:
             lista.append(i)
@@ -34,6 +35,14 @@ def sprawdz(pq, polynom):
 
     return trueOrFalse
 
+def der(p):
+    pom = []
+    p.remove(p[0])
+    for i in range(0,len(p)):
+        pom.append(p[i]*(i+1))
+    return pom
+
+########################################          MAIN        ##############################################################################
 
 def main():
     i = -1
@@ -45,17 +54,24 @@ def main():
         if item == '':
             break
         else:
-            item = float(item)
+            item = bignum(item)
             polynom.append(item)
     # print(polynom)
     p = pier(polynom[len(polynom) - 1])
     q = pier(polynom[0])
-
     pq = mieszaj(p, q)
 
-    for i in range(len(pq)):
-        print(pq[i])
-    print("Pierwiastki rownania to:", sprawdz(pq, polynom))
+    wynik = sprawdz(pq, polynom)
+    print("Pierwiastki rownania to:\n", wynik)
+
+    while(len(wynik) > 0):
+        polynom = der(polynom)
+        wynik2 = sprawdz(wynik, polynom)
+        if len(wynik2) >= 1:
+            print(wynik2)
+        wynik = wynik2;
+
+
 
 
 main()
