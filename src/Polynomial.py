@@ -1,6 +1,4 @@
-#from Crypto.Util.number import bignum
-import math
-from fractions import Fraction, gcd
+from fractions import Fraction
 
 
 def pier(p):
@@ -19,19 +17,20 @@ def mieszaj(p, q):
 
     for x in range(len(p)):
         for y in range(len(q)):
-            a = Fraction(q[y],p[x])
+            a = Fraction(q[y], p[x])
             if a not in mieszanka:
                 mieszanka.append(a)
     for x in range(len(mieszanka)):
         minusy.append(mieszanka[x] * -1)
     mieszanka.extend(minusy)
-    print("Wszystkie mozliwe:",mieszanka)
+    print("Wszystkie mozliwe:", *mieszanka)
     return mieszanka
+
 
 def sprawdz(pq, polynom):
     trueOrFalse = []
     for x in range(len(pq)):
-        wynik = Fraction(0,1);
+        wynik = Fraction(0, 1);
         for y in range(len(polynom)):
             wynik = wynik + polynom[y] * (pq[x] ** (y))
         if wynik == 0:
@@ -39,12 +38,14 @@ def sprawdz(pq, polynom):
 
     return trueOrFalse
 
+
 def der(p):
     pom = []
     p.remove(p[0])
-    for i in range(0,len(p)):
-        pom.append(p[i]*(i+1))
+    for i in range(0, len(p)):
+        pom.append(p[i] * (i + 1))
     return pom
+
 
 ########################################          MAIN        ##############################################################################
 
@@ -67,21 +68,18 @@ def main():
     pq = mieszaj(p, q)
     wynik = sprawdz(pq, polynom)
 
-    print("Pierwiastkami równania są:")
-    for i in wynik:
-        print(i)
-
-    while(len(wynik) > 0):
+    if ( len(wynik) > 0 ):
+        print("Pierwiastkami równania są:\n1 | ", *wynik)
+    i = 2
+    while (len(wynik) > 0):
         polynom = der(polynom)
         wynik2 = sprawdz(wynik, polynom)
 
         if len(wynik2) >= 1:
-            for i in wynik2:
-                print(i)
+            print(i, "| ", *wynik2)
 
         wynik = wynik2;
-
-
+        i=i+1
 
 
 main()
